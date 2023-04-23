@@ -59,8 +59,10 @@ for item in items:
     # yukarıdaki bs de işlemi xml olarak yapıyordum ama burada açıklamanın içi 
     # html olduğu için yeni bs tipine geçtim yani html okuma
     desc_soup = BeautifulSoup(description, "html.parser")
-    first_p = desc_soup.find("p")
+    first_p = desc_soup.find("p") # yukarıda da dediğim gibi haber açıklaması ilk p de olduğu için sadece find ile buldum
 
+    # eğer first p varsa onun textini yani içindeki metini yeni bir değer ata
+    # eğer yoksa değeri boş olarak göster
     if first_p:
         first_p_content = first_p.text
     else:
