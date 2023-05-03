@@ -37,7 +37,7 @@ rss_feed_links = {
     "https://donanimarsivi.com/feed/": "donanimarsivi",
 }
 
-beta = client.beta
+test_db4 = client.test4
 
 # title of the news can change but guid cannot so 
 # for checking the rss for new item we can use guid link
@@ -109,7 +109,7 @@ while True:
 
         # load all data
         # title, link, creator, publishDate, category names(array), description(first_p), image link
-        collection3 = beta.test3
+        collection4 = test_db4.test4
         # inserts new news if the guid is not in the list
         if guid not in existing_guids:
             existing_guids.add(guid)
@@ -121,7 +121,7 @@ while True:
                 "categories": category_names,
                 "description": first_p_content,
             }
-            collection3.insert_one(data)
+            collection4.insert_one(data)
             # convert data to json for insert
             # json_data = json.dumps(data)
             # no need to convert the data to json for mongodb it automatically recognizes the data types
@@ -130,7 +130,7 @@ while True:
 
             # print(f"Title:{title}\n\nLink:{link}\n\nCreator:{creator}\n\nPublish Date:{publishDate}\n\nCategories:{category_names}\n\nDescription:{first_p_content}\n\nImage:{articleImage}\n\n----------------------------------\n\n")
         
-        time.sleep(180)
+    time.sleep(180)
 
     """
     What I have written so far is for scraping the data from RSS and getting the stuff i need while cleaning the data, after this point the is to convert my data to json for uploading it to mongodb
