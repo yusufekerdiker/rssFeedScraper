@@ -33,15 +33,37 @@ import requests
 import time
 
 rss_feed_links = {
-    "https://www.technopat.net/feed/": "technopat",
-    "https://donanimarsivi.com/feed/": "donanimarsivi",
+    "Technopat" : "https://www.technopat.net/feed/",
+    "DonanimArsivi" : "https://donanimarsivi.com/feed/"
 }
 
-test_db4 = client.test4
+database = client.rssFeeds
 
 # title of the news can change but guid cannot so 
 # for checking the rss for new item we can use guid link
 existing_guids = set()
+
+
+"""
+for feed_name, feed_url in rss_feed_links.items():
+    url = requests.get(feed_url)
+    soup = BeautifulSoup(url.content, "xml")
+    items = soup.find_all("item")
+
+    # aşağıdaki gibi title = title link link eşlemesini yap ama şu an var mı yok mu kontrolu yapmıyorum o taglar ve tagların içini
+    for item in items:
+        database[feed_name].insert_one(
+            {
+                "title": title,
+                "link": link,
+                "creator": creator,
+                "publishDate": publishDate,
+                "categories": category_names,
+                "description": first_p_content,
+            }
+        )
+"""
+
 
 while True:
 
@@ -56,11 +78,11 @@ while True:
         guid = item.guid.text
 
         # loop in the news and get details of it
-        title = item.title.text
-        link = item.link.text
-        creator = item.creator.text
-        publishDate = item.pubDate.text
-        description = item.description.text
+        title = item.title.text or ""
+        link = item.link.text or ""
+        creator = item.creator.text or ""
+        publishDate = item.pubDate.text or ""
+        description = item.description.text or ""
 
         """
         # technopat halihazırda kelime temelli kategorileme yapıyor
@@ -109,7 +131,7 @@ while True:
 
         # load all data
         # title, link, creator, publishDate, category names(array), description(first_p), image link
-        collection4 = test_db4.test4
+        collection4 = database.test4
         # inserts new news if the guid is not in the list
         if guid not in existing_guids:
             existing_guids.add(guid)
