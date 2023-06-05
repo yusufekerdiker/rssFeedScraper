@@ -9,11 +9,11 @@ connection_string = f"mongodb+srv://yusufekerdiker:{password}@mycluster.fma9e4h.
 client = MongoClient(connection_string)
 
 rss_feed_links = {
-    "Technopat": "https://www.technopat.net/feed/",
-    "ShiftdeleteNet": "https://shiftdelete.net/feed",
+    "CNET": "https://www.cnet.com/rss/news/",
+    "TechSpices": "https://techspices.com/feed/",
 }
 
-database = client.db4
+database = client.rssFeeds
 
 app = Flask(__name__)
 

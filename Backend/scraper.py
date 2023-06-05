@@ -21,11 +21,11 @@ load_dotenv(find_dotenv())
 password = os.environ.get("MONGODB_PWD")
 connection_string = f"mongodb+srv://yusufekerdiker:{password}@mycluster.fma9e4h.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(connection_string)
-database = client.db3
+database = client.rssFeeds4
 
 rss_feed_links = {
     "CNET": "https://www.cnet.com/rss/news/",
-    # "TechSpices": "https://techspices.com/feed/",
+    "Wired": "https://www.wired.com/feed/rss",
 }
 
 existing_guids = set()
@@ -67,8 +67,28 @@ def insertRssFeeds(db, rss_links):
 
 
 def getArticleDescription(rss_url, item):
+    description = item.find("description")
+    if description and description.text:
+        if rss_url == "https://www.cnet.com/rss/news/" or rss_url == "https://www.wired.com/feed/rss":
+            return description.text
+    else:
+        return ""
+"""     
     if rss_url == "https://www.cnet.com/rss/news/":
         return item.description.text
+    elif rss_url == "https://www.wired.com/feed/rss":
+        return item.description.text 
+"""
+""" 
+        elif rss_url == "https://techspices.com/feed/":
+        desc_soup = BeautifulSoup(item.description.text, "html.parser")
+        first_p = desc_soup.find("p")
+        if first_p:
+            first_p_content = first_p.text
+        else:
+            first_p_content = ""
+        return first_p_content
+"""
 """     
     desc_soup = BeautifulSoup(desc, "html.parser")
     if rss_url == "https://www.technopat.net/feed/":
@@ -92,15 +112,29 @@ def getArticleImage(rss_url, item):
         articleImage = item.thumbnail["url"]
         image = articleImage.split("?")[0]
         return image
+    elif rss_url == "https://www.wired.com/feed/rss":
+        articleImage = item.thumbnail["url"]
+        return articleImage
 
 def getArticleCategory(rss_url, item):
     category_elements = item.find_all("category")
     category_names = []
     for category_element in category_elements:
         category_names.append(category_element.text)
-    # return category_names
+ 
+    keywords_element = item.keywords
+    # keywords_list = keywords_element.text.split(", ") if keywords_element and keywords_element.text else []
+    
+    keywords_list = []
+    if keywords_element:
+        keywords = keywords_element.text
+        keywords_categories = keywords.split(", ")
+        for category in keywords_categories:
+            keywords_list.append(category)
 
-    desc_soup = BeautifulSoup(item.description.text, "html.parser")
+    desc = getArticleDescription(rss_url, item)
+
+    desc_soup = BeautifulSoup(desc, "html.parser")
     description_text = desc_soup.get_text()
 
     # Use RAKE to extract keywords
@@ -124,35 +158,9 @@ def getArticleCategory(rss_url, item):
             break
 
     # Add keywords to existing categories
-    categories = category_names + single_words[:5] + multi_words[:5]
+    categories = category_names + single_words[:5] + multi_words[:5] + keywords_list
 
     return categories
-
-
-"""
-    desc_soup = BeautifulSoup(item.description.text, "html.parser")
-    description = desc_soup.get_text()
-
-    vectorizer = TfidfVectorizer(stop_words='english')
-    tfidf_matrix = vectorizer.fit_transform(description)
-
-    # Get feature names (words)
-    feature_names = vectorizer.get_feature_names_out()
-
-    # Get tf-idf values for the last document (the current item)
-    tfidf_values = tfidf_matrix[-1]
-
-    # Get top 10 keywords
-    indices = tfidf_values.indices
-    data = tfidf_values.data
-    sorted_indices = [index for _, index in sorted(zip(data, indices), reverse=True)]
-    keywords = [feature_names[i] for i in sorted_indices[:10]]
-
-    # Add keywords to existing categories
-    categories = category_names + keywords
-
-    return categories
-"""
 
 """
 #Extraction with nltk
