@@ -6,3 +6,4 @@ rake-nltk
 gunicorn
 Flask
 flask
+flask_cors
