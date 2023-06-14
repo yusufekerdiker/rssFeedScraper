@@ -1,0 +1,8 @@
+python-dotenv
+pymongo
+beautifulsoup4
+requests
+rake-nltk
+gunicorn
+flask
+flask_cors
