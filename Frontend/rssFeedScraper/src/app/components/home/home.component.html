@@ -46,13 +46,13 @@
 
 <div class="container">
 
-    <button class="btn" id="btnSwitch" (click)="switchTheme()">Toggle Mode</button>
-
-    <button class="btn" (click)="toggleSort()">Toggle Sort</button>
+    <div>
+        <button class="btn" (click)="toggleSort()">Toggle Sort</button>
+    </div>
 
     <div class="row row-cols-1  row-cols-sm-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-3">
 
-        <div class="col" *ngFor="let article of allArticles">
+        <div class="col my-3" *ngFor="let article of paginatedArticles">
 
             <div class="card h-100">
                 <!-- style="width: 18rem;" -->
@@ -89,5 +89,8 @@
         </div>
 
     </div>
+
+    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+        (page)="handlePage($event)"></mat-paginator>
 
 </div>

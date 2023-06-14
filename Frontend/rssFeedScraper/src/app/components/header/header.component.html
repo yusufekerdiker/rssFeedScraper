@@ -1,0 +1,48 @@
+<nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary">
+
+    <div class="container-fluid">
+        <button class="navbar-brand btn btn-outline-primary" routerLink="/">rssFeedParser</button>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <li class="nav-item">
+                    <button class="btn btn-primary" id="btnSwitch" (click)="switchTheme()">Switch Theme</button>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/categories">Categories</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" id="dropdownMenuButton">
+                        Publishers
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li *ngFor="let publisher of publishers">
+                            <mat-divider></mat-divider>
+                            <a class="dropdown-item" [routerLink]="['/publisher', publisher]">{{ publisher }}</a>
+                            <mat-divider></mat-divider>
+                        </li>
+                    </ul>
+                    <!--                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" routerLink="/publisher/CNET">CNET</a></li>
+                        <li><a class="dropdown-item" routerLink="/publisher/Wired">Wired</a></li>
+                    </ul> -->
+                </li>
+
+            </ul>
+
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
