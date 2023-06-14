@@ -1,9 +1,0 @@
-python-dotenv
-pymongo
-beautifulsoup4
-requests
-rake-nltk
-gunicorn
-Flask
-flask
-flask_cors

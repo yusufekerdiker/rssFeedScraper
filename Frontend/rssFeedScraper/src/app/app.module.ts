@@ -36,7 +36,7 @@ import {MatDividerModule} from '@angular/material/divider';
   ],
   providers: [{
     provide: 'apiUrl',
-    useValue: 'https://deneme-35ra.onrender.com/api/data'
+    useValue: 'https://rssfeedscraper.onrender.com/'
 }],
   bootstrap: [AppComponent]
 })

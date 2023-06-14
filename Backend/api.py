@@ -24,7 +24,7 @@ database = client.rssFeeds
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/api/data")
+@app.route("/")
 def get_data():
     data = {}
     try:

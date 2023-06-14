@@ -15,8 +15,8 @@ export class HomeComponent implements OnInit {
 
   // pagination stuff https://material.angular.io/components/paginator/examples#paginator-configurable
   length = 0; //total number of articles
-  pageSize = 9; //articles shown per page
-  pageSizeOptions: number[] = [9, 18, 27, 36, 45]; //option for changing number of articles shown per page
+  pageSize = 8; //articles shown per page
+  pageSizeOptions: number[] = [8, 16, 24, 32, 40]; //option for changing number of articles shown per page
   pageIndex = 0; // our current page index
   paginatedArticles: Article[] = []; //articles in our current page
 
