@@ -6,11 +6,24 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Output() themeSwitch = new EventEmitter<void>();
+
   publishers: string[] = ['CNET', 'Wired'];
+
+  showSearch = false;
+  isDarkTheme: boolean = false;
+
+  toggleSearch() {
+    this.showSearch = !this.showSearch;
+  }
+
+  @Output() themeSwitch = new EventEmitter<void>();
+
   switchTheme(): void {
     const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+    this.isDarkTheme = currentTheme === 'dark';
+
+    const newTheme = this.isDarkTheme ? 'light' : 'dark';
 
     // Switch bootstrap theme
     document.documentElement.setAttribute('data-bs-theme', newTheme);

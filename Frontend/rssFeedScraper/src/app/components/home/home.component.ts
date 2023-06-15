@@ -3,6 +3,7 @@ import { NewsService } from '../../services/news.service';
 import { News, Article } from '../../models/news';
 
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { SortService } from 'src/app/services/sort.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,10 @@ export class HomeComponent implements OnInit {
   pageIndex = 0; // our current page index
   paginatedArticles: Article[] = []; //articles in our current page
 
-  constructor(private newsService: NewsService) {}
+  constructor(
+    private newsService: NewsService,
+    private sortService: SortService
+  ) {}
 
   //import pagination ui from angular mat
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
@@ -45,7 +49,10 @@ export class HomeComponent implements OnInit {
     //calculate the index where we should start slicing the array of articles list
     let startIndex = this.pageIndex * this.pageSize;
     //get a slice of the array that shows to the current page
-    this.paginatedArticles = this.allArticles.slice(startIndex, startIndex + this.pageSize);
+    this.paginatedArticles = this.allArticles.slice(
+      startIndex,
+      startIndex + this.pageSize
+    );
   }
 
   //when the user changes page update the page index/number and size then get the articles for the new page
@@ -56,20 +63,17 @@ export class HomeComponent implements OnInit {
   }
 
   //when the user wants to change the sorting order we flip the bool value of changeSortingOrder, sort the articles and get the articles for the current page
-  toggleSort() {
-    this.changeSortingOrder = !this.changeSortingOrder;
+  onSort(changeSortingOrder: boolean) {
+    this.changeSortingOrder = changeSortingOrder;
     this.sortArticles();
     this.getPaginatedItems();
   }
 
   //in here we sort the articles array. Depending on the bool value of changeSortingOrder, we sort by date in ascending or descending order
   sortArticles() {
-    this.allArticles.sort((a, b) => {
-      if (this.changeSortingOrder) {
-        return new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime();
-      } else {
-        return new Date(a.publishDate).getTime() - new Date(b.publishDate).getTime();
-      }
-    });
+    this.allArticles = this.sortService.sortArticles(
+      this.allArticles,
+      this.changeSortingOrder
+    ); // Use the service to sort
   }
 }

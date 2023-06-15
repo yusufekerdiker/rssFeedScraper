@@ -1,35 +1,39 @@
 <div class="container">
+
+  <div class="float-end">
+    <app-sort-button (sort)="onSort($event)"></app-sort-button>
+  </div>
+
   <div class="row row-cols-1  row-cols-sm-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-3">
-      <div *ngFor="let article of articles" class="col my-3">
-        <div class="card h-100">
+    <div *ngFor="let article of articles" class="col my-3">
+      <div class="card h-100">
 
-          <img [src]="article.articleImg" class="card-img-top" alt="{{ article.title }}" />
+        <img [src]="article.articleImg" class="card-img-top" alt="{{ article.title }}" />
 
-          <div class="card-body">
-              <h5 style="font-size: 1.5em;" class="card-title">{{ article.title }}</h5>
-              <p class="card-text">{{ article.description }}</p>
-          </div>
+        <div class="card-body">
+          <h5 style="font-size: 1.5em;" class="card-title">{{ article.title }}</h5>
+          <p class="card-text">{{ article.description }}</p>
+        </div>
 
-          <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush">
 
-              <li class="list-group-item">{{article.creator}}</li>
+          <li class="list-group-item">{{article.creator}}</li>
 
-              <li class="list-group-item">Published on: {{ article.publishDate | date : "short" }}
-              </li>
+          <li class="list-group-item">Published on: {{ article.publishDate | date : "short" }}
+          </li>
 
-              <li class="list-group-item"><small> Categories:
-                      <span *ngFor="let category of article.categories; let isLast = last">
-                          {{ category }} <ng-container *ngIf="!isLast">, </ng-container>
-                          <!-- if we reached to the end of category do not put comma for seperation for categories TODO: make it clickable chips after adding pagination-->
-                      </span>
-                  </small></li>
+          <li class="list-group-item"><small> Categories:
+              <span *ngFor="let category of article.categories; let isLast = last">
+                {{ category }} <ng-container *ngIf="!isLast">, </ng-container>
+                <!-- if we reached to the end of category do not put comma for seperation for categories TODO: make it clickable chips after adding pagination-->
+              </span>
+            </small></li>
 
-          </ul>
-          <div class="card-body">
-            <a [href]="article.link" class="card-link">Read more</a>
-          </div>
+        </ul>
+        <div class="card-body">
+          <a [href]="article.link" class="card-link">Read more</a>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

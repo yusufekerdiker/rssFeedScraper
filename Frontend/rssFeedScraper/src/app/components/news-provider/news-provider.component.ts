@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NewsService } from '../../services/news.service';
 import { News, Article } from '../../models/news';
+import { SortService } from 'src/app/services/sort.service';
 
 
 @Component({
@@ -13,7 +14,9 @@ export class NewsProviderComponent implements OnInit {
   publisher: string | null = null;  // The name of the publisher as retrieved from the URL
   articles: Article[] = [];  // An array to hold the articles data fetched from the NewsService
 
-  constructor(private newsService: NewsService, private route: ActivatedRoute) {}
+  changeSortingOrder: boolean = true;
+
+  constructor(private newsService: NewsService, private route: ActivatedRoute, private sortService: SortService) {}
 
   // after creating component
   ngOnInit(): void {
@@ -35,5 +38,18 @@ export class NewsProviderComponent implements OnInit {
         this.articles = articles;
       });
     }
+  }
+
+  onSort(changeSortingOrder: boolean) {
+    this.changeSortingOrder = changeSortingOrder;
+    this.sortArticles();
+  }
+  
+
+  sortArticles() {
+    this.articles = this.sortService.sortArticles(
+      this.articles,
+      this.changeSortingOrder
+    );
   }
 }

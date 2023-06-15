@@ -46,8 +46,8 @@
 
 <div class="container">
 
-    <div>
-        <button class="btn" (click)="toggleSort()">Toggle Sort</button>
+    <div class="float-end">
+        <app-sort-button (sort)="onSort($event)"></app-sort-button>
     </div>
 
     <div class="row row-cols-1  row-cols-sm-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-3">
@@ -90,7 +90,7 @@
 
     </div>
 
-    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-        (page)="handlePage($event)"></mat-paginator>
-
 </div>
+
+<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+    (page)="handlePage($event)"></mat-paginator>

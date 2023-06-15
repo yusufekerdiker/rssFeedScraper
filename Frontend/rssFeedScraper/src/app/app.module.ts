@@ -16,6 +16,10 @@ import { CategoriesComponent } from './components/categories/categories.componen
 
 import {MatDividerModule} from '@angular/material/divider';
 
+import {MatIconModule} from '@angular/material/icon';
+import { SortButtonComponent } from './components/sort-button/sort-button.component';
+
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -25,6 +29,7 @@ import {MatDividerModule} from '@angular/material/divider';
     HeaderComponent,
     NewsProviderComponent,
     CategoriesComponent,
+    SortButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +37,9 @@ import {MatDividerModule} from '@angular/material/divider';
     HttpClientModule,
     BrowserAnimationsModule,
     MatPaginatorModule,
-    MatDividerModule
+    MatDividerModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   providers: [{
     provide: 'apiUrl',
