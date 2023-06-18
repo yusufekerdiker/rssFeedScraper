@@ -14,9 +14,9 @@ try:
 except errors.PyMongoError as e:
     print(f"Failed to connect to MongoDB: {e}")
 
-rss_feed_links = {
-    "CNET": "https://www.cnet.com/rss/news/",
-    "Wired": "https://www.wired.com/feed/rss",
+rss_feed_names = {
+    "cnet": "CNET",
+    "wired": "Wired"
 }
 
 database = client.rssFeeds
@@ -24,19 +24,29 @@ database = client.rssFeeds
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/")
-def get_data():
+@app.route("/", defaults={'path': ''})
+@app.route("/<path:path>")
+def get_data(path):
     data = {}
+    path = path.lower() #convert path to lower case
     try:
-        for feed_name, feed_url in rss_feed_links.items():
-            collection = database[feed_name]
-            try:
-                data[feed_name] = list(collection.find({}, {"_id": 0}))
-            except errors.PyMongoError as e:
-                return jsonify({"error": f"Failed to find data in MONGODB: {e}"})
+        if path in rss_feed_names:
+            #if path matches a feed name, retrieve data for that specific feed
+            data[rss_feed_names[path]] = list(database[rss_feed_names[path]].find({}, {"_id": 0}))
+        elif path == '':
+            #if path is not provided or empty return all the data
+            for feed_name, collection_name in rss_feed_names.items():
+                data[collection_name] = list(database[collection_name].find({}, {"_id": 0}))
+        else:
+            #if path doesnt match any feed name and isnt empty return an error
+            return jsonify({"error": "Invalid path"}), 404
+    
+    #handle errors when retrieving data from mongodb
+    except errors.PyMongoError as e:
+        return jsonify({"error": f"Failed to find data in MongoDB: {e}"}), 500
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
+    #if data retrieval is successful, return the data    
     return jsonify(data)
 
 if __name__ == "__main__":
