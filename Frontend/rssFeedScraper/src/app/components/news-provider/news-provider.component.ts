@@ -52,4 +52,15 @@ export class NewsProviderComponent implements OnInit {
       this.changeSortingOrder
     );
   }
+
+  showAlert: boolean = false;
+  alertMessage: string = '';
+  alertType: string = '';
+
+  handleAlert(event: { message: string; type: string }): void {
+    this.showAlert = true;
+    this.alertMessage = event.message;
+    this.alertType = event.type;
+    setTimeout(() => (this.showAlert = false), 3000);
+  }
 }

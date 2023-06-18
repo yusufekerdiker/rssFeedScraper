@@ -18,6 +18,7 @@ export interface News {
 }
 
 export interface Article {
+  guid: string;
   articleImg: string;
   categories: string[];
   creator: string;

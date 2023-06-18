@@ -1,0 +1,13 @@
+<div class="container">
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-3 row-cols-xxl-4 g-3">
+
+        <div class="col my-3" *ngFor="let article of filteredNews | searchFilter:searchTerm">
+
+            <app-card [article]="article"></app-card>
+
+        </div>
+
+    </div>
+    
+</div>

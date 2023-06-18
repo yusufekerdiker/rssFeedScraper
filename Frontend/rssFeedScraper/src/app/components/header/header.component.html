@@ -71,8 +71,8 @@
 
         <!-- Search icon for small screens -->
         <div class="d-lg-none" [class.d-none]="!showSearch">
-            <form class="d-flex mx-0" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex mx-0" role="search" (submit)="onSearch($event)">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [formControl]="searchTerm">
             </form>
         </div>
 
@@ -83,13 +83,23 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <!-- <ul class="navbar-nav mr-auto mb-2 mb-lg-0"> -->
             <ul class="navbar-nav ms-2">
+
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/categories">Categories</a>
+                    <a class="nav-link" routerLink="/home"><i class="bi bi-rss-fill"></i> Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/categories"><i class="bi bi-filter-square-fill"></i> Categories</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/favorites"><i class="bi bi-journal-bookmark-fill"></i> Favorites</a>
                 </li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
+                        <i class="bi bi-newspaper"></i>
                         Publishers
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -103,8 +113,9 @@
             </ul>
 
             <!-- Search form for large screens -->
-            <form class="d-flex mx-lg-auto mx-0 d-none d-lg-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex mx-lg-auto mx-0 d-none d-lg-flex" role="search" (submit)="onSearch($event)">
+
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [formControl]="searchTerm">
             </form>
 
             <!-- <button class="btn ms-lg-3 ms-0" id="btnSwitch" (click)="switchTheme()">Switch Theme</button> -->

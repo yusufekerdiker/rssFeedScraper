@@ -1,1 +1,11 @@
-<p>deneme works!</p>
+<mat-form-field class="category-section">
+  <mat-select placeholder="Select categories" multiple (selectionChange)="updateFilter($event)">
+    <mat-option *ngFor="let category of allCategories" [value]="category">
+      {{category.name}} ({{category.count}})
+    </mat-option>       
+  </mat-select>
+</mat-form-field>
+
+<div class="news-section">
+  <app-card *ngFor="let article of filteredNews" [article]="article"></app-card>
+</div>

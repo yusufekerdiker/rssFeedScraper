@@ -33,6 +33,17 @@ export class HomeComponent implements OnInit {
     this.getNews();
   }
 
+  showAlert: boolean = false;
+  alertMessage: string = '';
+  alertType: string = '';
+
+  handleAlert(event: { message: string; type: string }): void {
+    this.showAlert = true;
+    this.alertMessage = event.message;
+    this.alertType = event.type;
+    setTimeout(() => (this.showAlert = false), 3000);
+  }
+
   getNews(): void {
     this.newsService.getNews().subscribe((data: News) => {
       //subscribe and or listen the api and get items from it when change happens

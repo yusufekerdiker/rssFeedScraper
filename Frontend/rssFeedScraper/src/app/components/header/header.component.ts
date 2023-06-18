@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +14,22 @@ export class HeaderComponent {
 
   showSearch = false;
   isDarkTheme: boolean = false;
+
+  searchTerm = new FormControl('');
+
+  constructor(private searchService: SearchService, private router: Router) { }
+
+  onSearch(event: Event): void {
+    event.preventDefault();  // prevent the default form submission behaviour
+    console.log("onSearch() called");
+    const term = this.searchTerm.value || '';
+    this.searchService.setSearchTerm(term);
+    if (term) {
+      this.router.navigate(['/search', term]);
+    } else {
+      this.router.navigate(['/home']);
+    }
+  } 
 
   toggleSearch() {
     this.showSearch = !this.showSearch;
@@ -30,13 +49,5 @@ export class HeaderComponent {
 
     // Emit to switch angulatmat theme
     this.themeSwitch.emit();
-
-    // const currentBootstrapTheme = document.documentElement.getAttribute('data-bs-theme');
-    // document.documentElement.setAttribute('data-bs-theme', currentBootstrapTheme === 'dark' ? 'light' : 'dark');
-    // if (document.documentElement.getAttribute('data-bs-theme') === 'dark') {
-    //   document.documentElement.setAttribute('data-bs-theme', 'light');
-    // } else {
-    //   document.documentElement.setAttribute('data-bs-theme', 'dark');
-    // }
   }
 }

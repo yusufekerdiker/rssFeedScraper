@@ -1,1 +1,53 @@
-<p>categories works!</p>
+<!-- <div class="container">
+
+    <mat-form-field>
+        <mat-label>Select Categories</mat-label>
+        <mat-select [formControl]="categories" multiple>
+          <mat-option *ngFor="let category of categoryList" [value]="category.name">
+            {{ category.name }} ({{ category.count }})
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="applyFilter()">Apply Filter</button> -->
+      <!-- Rest of your template -->
+      
+<!--     <mat-form-field>
+        <mat-label>Select Categories</mat-label>
+        <mat-select [formControl]="categories" multiple>
+            <mat-option *ngFor="let category of categoryList" [value]="category">
+                {{ category }} ({{ categoryCounts[category] }})
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+-->
+
+
+<!--     <div *ngIf="categories.value">
+        <h2>Selected Categories</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-3 row-cols-xxl-4 g-3">
+
+            <div class="col my-3" *ngFor="let category of categories.value">
+                <app-card *ngFor="let article of allArticles | categoryFilter: category" [article]="article"></app-card>
+            </div>
+        </div>
+    </div> 
+</div> -->
+<div class="container">
+    <div class="search-bar">
+        <mat-form-field>
+          <mat-label>Select Categories</mat-label>
+          <mat-select [formControl]="selectedCategories" multiple (selectionChange)="onSelectionChange()">
+            <mat-option *ngFor="let category of categoryCountMap | keyvalue" [value]="category.key">
+              {{ category.key }} ({{ category.value }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-3 row-cols-xxl-4 g-3">
+
+        <div class="col my-3 article-list" *ngFor="let article of filteredArticles">
+      <app-card [article]="article"></app-card>
+    </div>
+  </div>
+  

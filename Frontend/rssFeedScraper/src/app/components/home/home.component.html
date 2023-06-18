@@ -1,96 +1,30 @@
-<!-- <div *ngFor="let article of allArticles">
-  <h2>{{ article.title }}</h2>
-  <img [src]="article.articleImg" alt="{{ article.title }}" />
-  <p>{{ article.description }}</p>
-  <p>Published on: {{ article.publishDate }}</p>
-</div> -->
-
-<!-- 
 <div class="container">
 
-    <div class="cards">
+    <div class="row">
 
-        <div class="row"> -->
-
-<!-- <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-6"> -->
-
-<!-- <div class="col col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 col-xxl-3"> -->
-<!-- 
-            <div *ngFor="let article of allArticles" class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
-
-                <img [src]="article.articleImg" class="card-img" alt="{{ article.title }}" />
-
-                <div class="card-img-overlay flex-column justify-content-end">
-                    <h5 class="card-title">{{ article.title }}</h5>
-                    <p class="card-text">{{ article.description }}</p>
-                    <p class="card-text"> <small> Published on: {{ article.publishDate | date : "short" }} </small> </p>
-                    <div>
-                        <small> Categories:
-                            <span *ngFor="let category of article.categories; let isLast = last">
-                                {{ category }} <ng-container *ngIf="!isLast">, </ng-container> -->
-<!-- if we reached to the end of category do not put comma for seperation for categories TODO: make it clickable chips after adding pagination-->
-<!--                             </span>
-                        </small>
-                    </div>
-                </div>
-            </div>
+        <div class="text-end mb-3">
+            <app-sort-button (sort)="onSort($event)"></app-sort-button>
         </div>
-    </div>
-</div> -->
 
-<!-- </div> -->
-<!-- </div> -->
+        <div class="col-8 position-absolute bottom-0 start-50 translate-middle z-3 alert alert-dismissible fade show alert-{{ alertType }}" role="alert" *ngIf="showAlert">
+            {{ alertMessage }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
 
-
-
-
-<div class="container">
-
-    <div class="float-end">
-        <app-sort-button (sort)="onSort($event)"></app-sort-button>
     </div>
 
-    <div class="row row-cols-1  row-cols-sm-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-3">
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-3 row-cols-xxl-4 g-3">
 
         <div class="col my-3" *ngFor="let article of paginatedArticles">
 
-            <div class="card h-100">
-                <!-- style="width: 18rem;" -->
-
-                <img [src]="article.articleImg" class="card-img-top" alt="{{ article.title }}" />
-
-                <div class="card-body">
-                    <h5 style="font-size: 1.5em;" class="card-title">{{ article.title }}</h5>
-                    <p class="card-text">{{ article.description }}</p>
-                </div>
-
-                <ul class="list-group list-group-flush">
-
-                    <li class="list-group-item">{{article.creator}}</li>
-
-                    <li class="list-group-item">Published on: {{ article.publishDate | date : "short" }}
-                    </li>
-
-                    <li class="list-group-item"><small> Categories:
-                            <span *ngFor="let category of article.categories; let isLast = last">
-                                {{ category }} <ng-container *ngIf="!isLast">, </ng-container>
-                                <!-- if we reached to the end of category do not put comma for seperation for categories TODO: make it clickable chips after adding pagination-->
-                            </span>
-                        </small></li>
-
-                </ul>
-
-                <div class="card-body">
-                    <a [href]="article.link" class="card-link" target="_blank"> Read the rest of the article</a>
-                </div>
-
-            </div>
+            <app-card [article]="article" (alertEmitter)="handleAlert($event)"></app-card>
 
         </div>
 
     </div>
 
-</div>
+    <mat-paginator class="rounded" showFirstLastButtons [length]="length" [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions" (page)="handlePage($event)"></mat-paginator>
 
-<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-    (page)="handlePage($event)"></mat-paginator>
+</div>
