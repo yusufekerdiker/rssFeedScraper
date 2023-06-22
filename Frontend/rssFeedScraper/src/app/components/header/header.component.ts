@@ -9,7 +9,6 @@ import { SearchService } from 'src/app/services/search.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-
   publishers: string[] = ['CNET', 'Wired'];
 
   showSearch = false;
@@ -17,11 +16,11 @@ export class HeaderComponent {
 
   searchTerm = new FormControl('');
 
-  constructor(private searchService: SearchService, private router: Router) { }
+  constructor(private searchService: SearchService, private router: Router) {}
 
   onSearch(event: Event): void {
-    event.preventDefault();  // prevent the default form submission behaviour
-    console.log("onSearch() called");
+    event.preventDefault(); // prevent the default form submission behaviour
+    console.log('onSearch() called');
     const term = this.searchTerm.value || '';
     this.searchService.setSearchTerm(term);
     if (term) {
@@ -29,7 +28,7 @@ export class HeaderComponent {
     } else {
       this.router.navigate(['/home']);
     }
-  } 
+  }
 
   toggleSearch() {
     this.showSearch = !this.showSearch;
@@ -37,17 +36,24 @@ export class HeaderComponent {
 
   @Output() themeSwitch = new EventEmitter<void>();
 
-  switchTheme(): void {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-
+  ngOnInit(): void {
+    const currentTheme = localStorage.getItem('theme') || 'light';
     this.isDarkTheme = currentTheme === 'dark';
+    document.documentElement.setAttribute('data-bs-theme', currentTheme);
+    document.documentElement.setAttribute('data-theme', currentTheme);
+  }
 
-    const newTheme = this.isDarkTheme ? 'light' : 'dark';
+  switchTheme(): void {
+    this.isDarkTheme = !this.isDarkTheme;
+    const newTheme = this.isDarkTheme ? 'dark' : 'light';
 
     // Switch bootstrap theme
     document.documentElement.setAttribute('data-bs-theme', newTheme);
 
-    // Emit to switch angulatmat theme
+    // Save the theme to the local storage
+    localStorage.setItem('theme', newTheme);
+
+    // Emit to switch Angular Material theme
     this.themeSwitch.emit();
   }
 }

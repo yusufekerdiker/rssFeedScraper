@@ -11,29 +11,48 @@ export class NewsService {
     private http: HttpClient,
     @Inject('apiUrl') private apiUrl: string
   ) {
-    //retrieve the favorites from localStorage
+    //retrieve the favorites from localStorage, if the item does not exist returns null.
     const storedFavorites = localStorage.getItem('favorites');
-    if (storedFavorites) {
-      this.favorites = new Set(JSON.parse(storedFavorites));
-    }
+    //check ternary to check if storedFavorites is not null if storedFavorites is not null means we have some favorited articles stored in the localStorage
+    //so we parse them with JSON.parse and assign favorites with them (json.parse transforms a json back to a js object)
+    //if storedFavorites is null taht means we dont have any favorited articles in localstorage so we set favorites with an empty array
+    this.favorites = new Set(
+      storedFavorites ? JSON.parse(storedFavorites) : []
+    );
   }
 
-  private favorites = new Set<Article>();
+  //this ensures that an article can only be added once because set method allows only unique items
+  private favorites: Set<Article> = new Set();
 
   addToFavorites(article: Article) {
+    // add article to favorites then add it to set
     this.favorites.add(article);
-
-    localStorage.setItem('favorites', JSON.stringify(Array.from(this.favorites)));
+    //then update localstorage with the new list
+    localStorage.setItem(
+      'favorites',
+      JSON.stringify(Array.from(this.favorites))
+    );
   }
 
   removeFromFavorites(article: Article) {
-    this.favorites.delete(article);
-
-    localStorage.setItem('favorites', JSON.stringify(Array.from(this.favorites)));
+    //to remove  article from favorites we create a new set without that article
+    this.favorites = new Set(
+      Array.from(this.favorites).filter(
+        (a) => a.title !== article.title || a.link !== article.link
+      )
+    );
+    //then we update local storage with the new list of favorited articles
+    localStorage.setItem(
+      'favorites',
+      JSON.stringify(Array.from(this.favorites))
+    );
   }
 
   isFavorite(article: Article): boolean {
-    return this.favorites.has(article);
+    //check if an article is favorited we check if it exists in the set of favorited articles
+    return Array.from(this.favorites).some(
+      (a) => a.title === article.title && a.link === article.link
+    );
   }
 
   getFavorites(): Article[] {
@@ -58,25 +77,3 @@ export class NewsService {
     );
   }
 }
-
-/* 
-export class NewsService {
-  private newsSubject = new BehaviorSubject<News>(null);
-  news$ = this.newsSubject.asObservable();
-
-  constructor(private http: HttpClient) {
-    this.refreshNews();
-  }
-
-  refreshNews() {
-    this.http.get<News>(this.apiUrl).subscribe(data => {
-      let allArticles = [];
-      for (const publisher in data) {
-        allArticles = allArticles.concat(data[publisher]);
-      }
-      this.newsSubject.next(allArticles);
-    });
-  }
-}
-
-*/

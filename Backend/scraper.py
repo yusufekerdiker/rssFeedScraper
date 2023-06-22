@@ -149,6 +149,10 @@ def getArticleCategory(rss_url, item):
 
     categories = category_names + single_words[:5] + multi_words[:5] + keywords_list
 
+    # remove_chars = [ord("'"), ord("/"), ord("-"), ord(","), ord("\""),  ord("\’"), ord("—")]
+    # categories = [category for category in categories if not any(ord(char) in remove_chars for char in category)]
+    # categories = [category.replace(char, "") for category in categories for char in remove_chars]
+
     return categories
 
 #main script continuously runs the insertRssFeeds function every 3 minutes. this means our database will be updated with new items from the RSS feeds every 3 minutes

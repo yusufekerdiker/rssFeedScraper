@@ -1,7 +1,7 @@
 <div class="card h-100">
     <!-- style="width: 18rem;" -->
 
-    <img [src]="article.articleImg" class="card-img-top" alt="{{ article.title }}" />
+    <img [src]="article.articleImg" style="height: 15rem;" class="card-img-top" alt="{{ article.title }}" />
 
     <div class="card-body">
         <h5 style="font-size: 1.5em;" class="card-title">{{ article.title }}</h5>
@@ -18,7 +18,6 @@
         <li class="list-group-item"><small> Categories:
                 <span *ngFor="let category of article.categories; let isLast = last">
                     {{ category }} <ng-container *ngIf="!isLast">, </ng-container>
-                    <!-- if we reached to the end of category do not put comma for seperation for categories TODO: make it clickable chips after adding pagination-->
                 </span>
             </small></li>
 
@@ -33,10 +32,5 @@
         </button>
 
     </div>
-
-<!--     <div *ngIf="showAlert" class="alert"
-        [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'danger'}">
-        {{ alertMessage }}
-    </div> -->
 
 </div>

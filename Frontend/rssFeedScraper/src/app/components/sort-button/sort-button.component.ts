@@ -6,7 +6,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
     <button class="btn btn-outline-primary" (click)="toggleSort()">
       {{ sortButtonLabel }}
     </button>
-  `
+  `,
 })
 export class SortButtonComponent {
   changeSortingOrder: boolean = true;
@@ -16,7 +16,7 @@ export class SortButtonComponent {
 
   toggleSort() {
     this.changeSortingOrder = !this.changeSortingOrder;
-    
+
     //update the sort button label
     this.sortButtonLabel = this.changeSortingOrder ? 'A->Z' : 'Z->A';
 

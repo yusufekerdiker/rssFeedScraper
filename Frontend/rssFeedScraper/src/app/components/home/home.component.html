@@ -6,13 +6,11 @@
             <app-sort-button (sort)="onSort($event)"></app-sort-button>
         </div>
 
-        <div class="col-8 position-absolute bottom-0 start-50 translate-middle z-3 alert alert-dismissible fade show alert-{{ alertType }}" role="alert" *ngIf="showAlert">
-            {{ alertMessage }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="col-8 position-absolute bottom-0 start-50 translate-middle z-3 alert alert-dismissible fade show alert-{{ alertType }}" role="alert" *ngIf="showAlert"> 
+            {{ alertMessage }} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
 
     </div>
-
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-3 row-cols-xxl-4 g-3">
 

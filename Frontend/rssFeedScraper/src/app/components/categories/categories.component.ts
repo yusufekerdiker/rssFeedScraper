@@ -15,22 +15,24 @@ export class CategoriesComponent implements OnInit {
   categories: string[] = [];
   categoryCountMap: Map<string, number> = new Map<string, number>();
 
-  constructor(private newsService: NewsService) { }
+  constructor(private newsService: NewsService) {}
 
   ngOnInit(): void {
-    this.newsService.getNews().subscribe((data: { [key: string]: Article[] }) => {
-      for (const publisher in data) {
-        this.allArticles = this.allArticles.concat(data[publisher]);
-      }
-      this.generateCategoryList();
-      this.generateCategoryCountMap();
-    });
+    this.newsService
+      .getNews()
+      .subscribe((data: { [key: string]: Article[] }) => {
+        for (const publisher in data) {
+          this.allArticles = this.allArticles.concat(data[publisher]);
+        }
+        this.generateCategoryList();
+        this.generateCategoryCountMap();
+      });
   }
 
   generateCategoryList(): void {
     const categorySet = new Set<string>();
-    this.allArticles.forEach(article => {
-      article.categories.forEach(category => {
+    this.allArticles.forEach((article) => {
+      article.categories.forEach((category) => {
         categorySet.add(category);
       });
     });
@@ -38,12 +40,15 @@ export class CategoriesComponent implements OnInit {
   }
 
   generateCategoryCountMap(): void {
-    this.allArticles.forEach(article => {
-      article.categories.forEach(category => {
+    this.allArticles.forEach((article) => {
+      article.categories.forEach((category) => {
         if (!this.categoryCountMap.has(category)) {
           this.categoryCountMap.set(category, 1);
         } else {
-          this.categoryCountMap.set(category, this.categoryCountMap.get(category) as number + 1);
+          this.categoryCountMap.set(
+            category,
+            (this.categoryCountMap.get(category) as number) + 1
+          );
         }
       });
     });
@@ -51,12 +56,14 @@ export class CategoriesComponent implements OnInit {
 
   onSelectionChange(): void {
     let selected = this.selectedCategories.value;
-    this.filteredArticles = this.allArticles.filter(article =>
-      article.categories.some(category => selected.includes(category))
+    this.filteredArticles = this.allArticles.filter((article) =>
+      article.categories.some((category) => selected.includes(category))
     );
   }
 
   isArticleInArray(article: Article, array: Article[]): boolean {
-    return array.some(a => a.title === article.title && a.link === article.link);
+    return array.some(
+      (a) => a.title === article.title && a.link === article.link
+    );
   }
 }

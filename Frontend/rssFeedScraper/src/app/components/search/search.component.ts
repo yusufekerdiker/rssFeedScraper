@@ -23,21 +23,21 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.searchService.getSearchTerm().subscribe((term) => {
       this.searchTerm = term;
-  
+
       // Clear the existing news data
       this.allNews = [];
-  
+
       this.newsService.getNews().subscribe((news) => {
         for (let publisher in news) {
           this.allNews.push(...news[publisher]);
         }
         // Filter the news by the search term
-        this.filteredNews = this.allNews.filter(article => 
-          article.title.toLowerCase().includes(term.toLowerCase()) ||
-          article.description.toLowerCase().includes(term.toLowerCase())
+        this.filteredNews = this.allNews.filter(
+          (article) =>
+            article.title.toLowerCase().includes(term.toLowerCase()) ||
+            article.description.toLowerCase().includes(term.toLowerCase())
         );
       });
     });
   }
-  
 }

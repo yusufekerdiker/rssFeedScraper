@@ -5,12 +5,12 @@ import { NewsService } from 'src/app/services/news.service';
 @Component({
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',
-  styleUrls: ['./favorites.component.scss']
+  styleUrls: ['./favorites.component.scss'],
 })
 export class FavoritesComponent {
   favorites: Article[] = [];
 
-  constructor(private newsService: NewsService) { }
+  constructor(private newsService: NewsService) {}
 
   ngOnInit(): void {
     this.favorites = this.newsService.getFavorites();
