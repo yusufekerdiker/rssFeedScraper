@@ -3,14 +3,14 @@ import { Component, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-sort-button',
   template: `
-    <button class="btn btn-outline-primary" (click)="toggleSort()">
-      {{ sortButtonLabel }}
+    <button class="btn btn-outline-warning" (click)="toggleSort()">
+      Sorting by {{ sortButtonLabel }}
     </button>
   `,
 })
 export class SortButtonComponent {
   changeSortingOrder: boolean = true;
-  sortButtonLabel: string = 'A->Z';
+  sortButtonLabel: string = 'Newest';
 
   @Output() sort = new EventEmitter<boolean>();
 
@@ -18,7 +18,7 @@ export class SortButtonComponent {
     this.changeSortingOrder = !this.changeSortingOrder;
 
     //update the sort button label
-    this.sortButtonLabel = this.changeSortingOrder ? 'A->Z' : 'Z->A';
+    this.sortButtonLabel = this.changeSortingOrder ? 'Newest' : 'Oldest';
 
     this.sort.emit(this.changeSortingOrder);
   }

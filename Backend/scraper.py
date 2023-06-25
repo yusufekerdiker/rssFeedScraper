@@ -177,7 +177,8 @@ def getArticleCategory(rss_url, item):
 
     # remove — and ... from all categories
     clean_categories = [
-        category.replace("—", "").replace("...", "") for category in split_categories
+        category.replace("—", "").replace("...", "").replace("--", "")
+        for category in split_categories
     ]
 
     # Remove ’ from categories that are ending with that

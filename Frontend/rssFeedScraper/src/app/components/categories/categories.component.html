@@ -2,7 +2,7 @@
 
   <div class="search-bar">
 
-    <mat-form-field style="display:block;" color="accent">
+    <mat-form-field style="display:block;" color="primary">
       <mat-label>Select Categories</mat-label>
       <mat-select [formControl]="selectedCategories" multiple (selectionChange)="onSelectionChange()">
         <mat-option *ngFor="let category of categoryCountMap | keyvalue" [value]="category.key">
