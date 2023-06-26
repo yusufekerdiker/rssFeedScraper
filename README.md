@@ -1,6 +1,3 @@
-# rssFeedScraper
-
-```
 # Tech News Scraper
 
 Welcome to the Tech News Scraper project repository! This is a tool that collects and organizes technology news articles from various websites, providing you with an easy way to stay updated on the latest happenings in the tech world.
@@ -75,4 +72,4 @@ Contributions are welcome! If you find any issues or have ideas for improvements
 ## License
 
 This project is licensed under the [I HAVE NO IDEA].
-```
+
