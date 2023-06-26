@@ -71,5 +71,5 @@ Contributions are welcome! If you find any issues or have ideas for improvements
 
 ## License
 
-This project is licensed under the [I HAVE NO IDEA].
+This project is licensed under the [LICENSE](LICENSE).
 
