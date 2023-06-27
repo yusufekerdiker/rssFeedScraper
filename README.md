@@ -5,8 +5,8 @@ Welcome to the Tech News Scraper project repository! This is a tool that collect
 ## Features
 
 - Scrapes technology news articles from popular websites.
-- Cleans the scraped data for consistency and quality.
-- Uses machine learning (RAKE*) to classify articles into categories.
+- Cleans the scraped data for consistency.
+- Uses RAKE* to classify articles into categories.
 - Stores the data in a database for easy access.
 - Provides a web API to access the collected data programmatically.
 - Includes a user-friendly web application to browse and search for articles.
@@ -26,7 +26,7 @@ Welcome to the Tech News Scraper project repository! This is a tool that collect
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/tech-news-aggregator.git
+git clone https://github.com/your-username/rssFeedScraper.git
 ```
 
 2. Install the required dependencies for the web scraping and API components:
