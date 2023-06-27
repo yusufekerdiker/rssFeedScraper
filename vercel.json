@@ -7,11 +7,11 @@
     ],
     "routes": [
       {
-        "dest": "/Backend/*.py",
+        "dest": "/Backend/api.py",
         "src": "/api/(.*)"
       },
       {
-        "dest": "/Backend/*.py",
+        "dest": "/Backend/scraper.py",
         "src": "/api/"
       }
     ]
