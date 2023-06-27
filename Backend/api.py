@@ -4,8 +4,6 @@ from dotenv import load_dotenv, find_dotenv
 import os
 from flask_cors import CORS
 
-import scraper
-
 load_dotenv(find_dotenv())
 password = os.environ.get("MONGODB_PWD")
 username = os.environ.get("MONGODB_USR")
