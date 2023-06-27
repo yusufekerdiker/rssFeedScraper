@@ -1,30 +1,30 @@
 {
     "builds": [
         {
-            "src": "./Backend/api.py",
+            "src": "Backend/api.py",
             "use": "@vercel/python"
         },
         {
-            "src": "./Backend/scraper.py",
+            "src": "Backend/scraper.py",
             "use": "@vercel/python"
         }
     ],
     "routes": [
       {
         "src": "/api/(.*)",
-        "dest": "/Backend/api.py"
+        "dest": "Backend/api.py"
       },
       {
         "src": "/api/",
-        "dest": "/Backend/api.py"
+        "dest": "Backend/api.py"
       },
       {
         "src": "/api/(.*)",
-        "dest": "/Backend/scraper.py"
+        "dest": "Backend/scraper.py"
       },
       {
         "src": "/api/",
-        "dest": "/Backend/scraper.py"
+        "dest": "Backend/scraper.py"
       }
     ]
   }
